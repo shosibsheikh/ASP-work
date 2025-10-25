@@ -1,0 +1,27 @@
+﻿@model EmailView.Models.EmailViewModel
+  
+
+<h2>Send Email</h2>
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    <div>
+        <label>To:</label>
+        @Html.TextBoxFor(m => m.To, new { @class = "form-control" })
+    </div>
+    <div>
+        <label>Subject:</label>
+        @Html.TextBoxFor(m => m.Subject, new { @class = "form-control" })
+    </div>
+    <div>
+        <label>Message:</label>
+        @Html.TextAreaFor(m => m.Body, new { @class = "form-control", rows = 5 })
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Send Email</button>
+}
+
+@if (ViewBag.Message != null)
+{
+    <h3>@ViewBag.Message</h3>
+}
