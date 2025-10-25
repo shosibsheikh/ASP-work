@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+@* link with out id *@
+<a href="/Home/Vdata/">ViweData</a>
+<br />
+@Html.ActionLink("ViewBag", "Vbag", "Home")
+<br />
+<a href="@Url.Action("Tdata", "Home")">TempData</a>
+<br />
+@* <a asp-controller="Home" asp-action="contact">contact Pags 4</a> *@
+
+
+@* link with  id *@
+<a href="/Home/Edit/1">Contact pag 1</a>
+<br />
+@Html.ActionLink("contact Pags 2", "Edit", "Home", new { Id = 1 })
+<br />
+<a href="@Url.Action("Edit", "Home", new { Id = 1 })">contact Pags 3</a>
+<br />
+<a asp-controller="Home" asp-action="Edit" asp-route-Id="1">contact Pags 4</a>
+<br />
+@Html.ActionLink("Go To HTMLhelper","Index", "HTMLhelper")
+<br />
+@* @ViewData["Data1"]
+<br />
+@ViewBag.Data2
+<br />
+@TempData["Data3"]
+
+ *@
+@{
+    foreach (var item in (List<string>)TempData["Data4"])
+    {
+        <h2>@item</h2>
+    }
+}

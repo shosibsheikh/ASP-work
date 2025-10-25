@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "Vdata";
+}
+
+<h1>ViewData</h1>
+
+
+@ViewData["Data1"]
+<br />
+@ViewData["Data2"]
+<br />
+@ViewData["Data3"]
+<br />
+
+<p style="color:forestgreen;">@ViewData["myName"]</p>
+<br />
+@{
+    foreach (var item in (string[])ViewData["Data4"])
+    {
+        <h2>@item</h2>
+    }
+}
+@{
+    foreach (var item in (List<string>)ViewData["Data5"])
+    {
+        <h2>@item</h2>
+    }
+}

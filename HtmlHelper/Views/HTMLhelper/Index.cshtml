@@ -1,0 +1,64 @@
+﻿@{
+	ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+@Html.ActionLink("Go To Home", "Index", "Home")
+<br />
+@Html.Label("Enter your Name")
+@Html.TextBox("Name", "Enter your full Name")
+<br />
+@Html.TextBox("Name", "Hello")
+<br />
+
+@Html.Label("Enter Comment")
+<br />
+@Html.TextArea("Messages")
+<br />
+@Html.Password("Password")
+<from action="/" method="post"></from>
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+	<p>@Html.Label("Enter your Name")</p>
+	<p>
+		@Html.TextBox("Username", null, new
+		{
+			placeholder = "Enter your Username",
+		@class = "from-control",
+		required = "",
+		style = "background:gray;"
+		})
+
+</p>
+<p>@Html.Label("Enter your Name")</p>
+
+<p>
+	@Html.RadioButton("gender", "Male") Male
+	@Html.RadioButton("gender", "Female") Female
+</p>
+<p>
+	@Html.DropDownList("Country", new SelectList(new[]
+		{
+			"Pakistan","Iraq","Iran"
+		}),"Select Country", new
+		{
+			@class = "form-control",
+			required = ""
+
+		}
+		)
+		
+		@Html.DropDownList("city",new SelectList(new[]
+		{
+		"Karachi",
+		"Lahore",
+		"Quecta"
+		}),"SelectCity", new
+		{
+		@class = "form-control",
+		requried = ""
+		}
+		)
+	</p>
+	<p><button>Submit</button></p>
+}

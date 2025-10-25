@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "Vbag";
+}
+
+<h1>Viewbag</h1>
+
+@ViewBag.Data1
+<br />
+@ViewBag.Data2
+<br />
+@ViewBag.Data3
+<br />
+
+@* VewData calling in Index.cshtml from ViewBag *@
+<p style="color:chocolate;">@ViewBag.myName</p>
+<br />
+
+@* Do not required Type casting in ViewBag = (string[]) or (List<string>)*@
+@{
+    foreach (var item in ViewBag.Data4)
+    {
+        <h2>@item</h2>
+    }
+}
+<br />
+@{
+    foreach (var item in ViewBag.Data5)
+    {
+        <h2>@item</h2>
+    }
+}
