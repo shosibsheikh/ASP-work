@@ -1,0 +1,173 @@
+1st Step:Install 3Packges ASP.NETCore MVC 
+
+Microsoft.EnitityFrameworkCore.Design
+Microsoft.EnitityFrameworkCore.SqlServer
+Microsoft.EnitityFrameworkCore.Tools
+
+2ed Step:Make (Model Class) OR (StudentDbContext Class)
+public class Student
+{
+    [Key]
+    public int Id { get; set; }
+    [Column("StudentName", TypeName = ("varchar(100)"))]
+    public string Name { get; set; }
+    [Column("StudentGender", TypeName = ("varchar(10)"))]
+    public string Gender { get; set; }
+    public int Age { get; set; }
+}
+using Microsoft.EntityFrameworkCore;
+
+namespace Crud.Models
+{
+    public class StudentDBContext : DbContext  (DbContext is parent class) or 
+    {  
+            public StudentDBContext(DbContextOptions options) : base(options)       ( make constructor or parameter (DbContextOptions options) 
+             {                                                                      jahan pah ya pernt thesses khtam ho raha hay is ke bad           
+                                                                                    yahan pah : lagana hay or is ke bad yahan pah (Base) ki ward us karna hay)  
+             } 
+                 public DbSet<Student> Students { get; set; }                      make a DbSet<> dbSet ka jo naam hay isi naam ka detabase bane ga                                                    
+    }
+}
+3rd Step:
+Create Connection String appsettings.Json file
+"ConnectionStrings": {
+  "dbcs": "Data Source=DESKTOP-T5CK7DQ;Initial Catalog=Crud_new;Integrated Security=True;Trust Server Certificate=True"
+
+4th Step:
+Register Connection String In Program.cs  (builder.Services. ke niche)
+
+var provider = builder.Services.BuildServiceProvider();    (Add name spec:using Crud.Models; OR using Microsoft.EntityFrameworkCore;
+var config = provider.GetRequiredService<IConfiguration>();
+builder.Services.AddDbContext<addNameDbContext>(item => item.UseSqlServer(config.GetConnectionString("dbcs")));
+
+5th Step:
+Add a migration and run migration (go to tools : NuGet Packags Manager)
+
+add-migration databaseName
+(maigration file banane ke bad ya camand run kara) update-database
+
+agar tibl min kalm ed karna ho to model paraprti banane ke bad ya camand ran karin
+
+add-migration nameAddclass
+(ya camand run kara) update-database
+
+        IN HOMEController.cs
+
+(is ke bad)   create constructor
+ public HomeController(StudentDBContext studentDB)
+ {
+ }          
+
+(stodintDb  ka peramater karsar rakh ke (Ctrl plus .))
+pehle se jo Index ka view hay is ko delet karna hay
+       
+
+  /* without async*/
+  public IActionResult Index()
+  {
+      var stdData = studentDB.Students.ToList();
+
+      return View(stdData);
+
+      //With async(ASP.NET Core Async hi recommends karta hay)
+  public async Task<IActionResult> Index()
+  {
+      var stdData = await studentDB.Students.ToListAsync();
+
+      return View(stdData);
+  }
+
+ [HttpPost]     /* without async*/
+ [ValidateAntiForgeryToken]
+ public IActionResult Create(Student std)        
+ {
+     if(ModelState.IsValid){
+         studentDB.Students.Add(std);
+         studentDB.SaveChanges(); 
+         return RedirectToAction("Index","Home");
+     }
+     return View();
+ }
+
+
+ //With async(ASP.NET Core Async hi recommends karta hay)
+ public async Task<IActionResult> Create(Student std)
+ {
+     if (ModelState.IsValid)
+     {
+         await studentDB.Students.AddAsync(std);
+         await studentDB.SaveChangesAsync();
+         return RedirectToAction("Index", "Home");
+     }
+     return View();
+ }
+
+      public async Task<IActionResult> Details(int? id)
+      {
+          if(id == null || studentDB.Students == null)
+          { 
+              return NotFound();
+          }
+          var stdData = await studentDB.Students.FirstOrDefaultAsync(x => x.Id == id);
+          if (stdData == null)
+          {
+              return NotFound();
+          }
+          
+          return View(stdData);
+
+ public async Task<IActionResult> Edit(int? id)
+ {
+     if (id == null || studentDB.Students == null)
+     {
+         return NotFound();
+     }
+     var stdData = await studentDB.Students.FindAsync(id);
+     if (stdData == null)
+     {
+         return NotFound();
+     }
+     return View(stdData);
+ }
+ [HttpPost]
+ [ValidateAntiForgeryToken]
+ public async Task<IActionResult> Edit(int? id, Student std)
+ {
+       if (id != std.Id)
+ {
+     return NotFound();
+ }
+     if (ModelState.IsValid)
+     {
+         studentDB.Students.Update(std);
+         await studentDB.SaveChangesAsync();
+         return RedirectToAction("Index", "Home");
+     }
+     return View(std);
+ }
+
+ public async Task<IActionResult> Delete(int? id)
+ {
+     if (id == null || studentDB.Students == null)
+     {
+         return NotFound();
+     }
+     var stdData = await studentDB.Students.FirstOrDefaultAsync(x => x.Id == id);
+     if (stdData == null)
+     {
+         return NotFound();
+     }
+     return View(stdData);
+ }
+ [HttpPost, ActionName("Delete")]
+ [ValidateAntiForgeryToken]
+ public async Task<IActionResult> DeleteConfirmed(int? id)
+ {
+     var stdData = await studentDB.Students.FindAsync(id);
+     if(stdData == null)
+     {
+         studentDB.Students.Remove(stdData);
+     }
+     await studentDB.SaveChangesAsync();
+     return RedirectToAction("Index", "Home");
+ }
