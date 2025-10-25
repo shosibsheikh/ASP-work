@@ -1,0 +1,45 @@
+﻿
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+@* <div class="container ">
+    <div class="col-sm-4">
+        <form class="d-grid" asp-action="Index" asp-controller="home" method="post">
+            <input  placeholder="Enter Name" class="form-control" />
+            <br />
+            <input placeholder="Enter Age" class="form-control" />
+            <br />
+            <input  placeholder="Enter Designation" class="form-control" />
+            <br />
+            <input  placeholder="Enter Salary" class="form-control" />
+            <br />
+            <input " value="Submit" class="btn btn-outline-danger btn-block" />
+        </form>
+    </div> *@
+
+@using (Html.BeginForm("Login", "Form", FormMethod.Post))
+{
+    <p>
+        @Html.Label("Enter Name")                                                                                                                                                               
+    </p>
+    <p>
+        @Html.TextBox("userame", null , new {@class = "from-contral", placeholder = "add username"})
+    </p>
+   <p>
+        @Html.Label("Enter Password")
+    </p>
+    <p>
+        @Html.TextBox("password", null , new {@class = "from-contral", placeholder = "add password"})
+    </p>
+    <button class="btn-btn-cuccess">LoginForm</button>
+}
+@if(ViewBag.Error != "")
+{
+	@ViewBag.Error  
+}
+
+@ViewBag.SessdioinCheck 
+

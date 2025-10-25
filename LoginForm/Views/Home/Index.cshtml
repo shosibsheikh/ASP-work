@@ -1,0 +1,99 @@
+﻿@model LoginForm.Models.Employee;
+@{
+    ViewData["Title"] = "Home Page";
+	Layout = null;
+}
+
+@* <div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div> *@
+
+<h3 style="color:blue;">@Html.ActionLink("Go To LOGIN", "Login", "FORM")</h3>
+@* 
+<div class="container ">
+    <div class="col-sm-4">
+        <form class="d-grid" asp-action="Index" asp-controller="home" method="post">
+            <input asp-for="Name" placeholder="Enter Name" class="form-control" />
+             <br />
+            <input asp-for="Age" placeholder="Enter Age" class="form-control" />
+            <br />
+            <input asp-for="Designation" placeholder="Enter Designation" class="form-control" />
+            <br />
+            <input asp-for="Salary" placeholder="Enter Salary" class="form-control" />
+            <br />
+            <input type="submit" value="Submit" class="btn btn-outline-danger btn-block"/>
+        </form>
+    </div>
+</div> *@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+    <style>
+        body {
+            background-color: green;
+            color: rgb(223, 238, 10);
+            font-size: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+
+
+        const addItem = async (item) => {
+            await randomDelay();
+            let div = document.createElement("div");
+            div.innerHTML = item;
+            document.body.append(div)
+        }
+
+        const randomDelay = () => {
+            return new Promise((resolve, reject) => {
+                timeout = 1 + 6 * Math.random();
+                setTimeout(() => {
+                    resolve()
+                }, timeout * 1000);
+            })
+        }
+        async function main() {
+
+
+            let t = setInterval(() => {
+                let last = document.body.getElementsByTagName("div");
+                last = last[last.length - 1]
+                if (last.innerHTML.endsWith("...")) {
+                    last.innerHTML = last.innerHTML.slice(0, last.innerHTML.length - 3)
+
+                }
+                else {
+                    last.innerHTML = last.innerHTML + "."
+                }
+            }, 100);
+
+            let text = ["پاکستان، متنوع ثقافتوں، روایات کی سرزمین",
+                "شمالی علاقوں میں پہاڑ اونچے ہوتے ہیں۔",
+                "بھرپور تاریخ اور ورثے کے لیے مشہور ہے۔",
+                "لاہور کی بادشاہی مسجد عظیم الشان کھڑی ہے۔",
+                "کھانے میں مصالحے، ذائقے اور خوشبو مل جاتی ہے۔",
+                "پاکستان کا مستقبل امیدوں سے روشن ہے۔",
+                "Hold down",]
+
+            for (const item of text) {
+                await addItem(item)
+            }
+            await randomDelay()
+            clearInterval(t)
+        }
+        main()
+
+    </script>
+</body>
+
+</html>
