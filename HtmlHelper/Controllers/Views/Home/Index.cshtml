@@ -1,0 +1,25 @@
+﻿@* @model List<FirstApp.Models.Student> *@   
+                                               @*  Use List of object Coling for (List<> or IEnumerable<>) *@
+@* @model IEnumerable<FirstApp.Models.Student> *@
+@model IEnumerable<Student>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<h1 style="color:forestgreen;">List<></></h1>
+@{
+foreach (var item in Model)
+    {
+        <p>Id @item.Id</p>
+        <p>Name @item.Name</p>
+        <p>Age @item.Age</p>
+        <p>Salery @item.Salery</p>
+        <p>----------</p>
+    }
+    
+
+}

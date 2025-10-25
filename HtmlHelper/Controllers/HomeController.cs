@@ -1,8 +1,9 @@
 using System.Diagnostics;
-using HtmlHelper.Models;
+using FirstApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HtmlHelper.Controllers
+
+namespace FirstApp.Controllers
 {
     public class HomeController : Controller
     {
@@ -15,66 +16,16 @@ namespace HtmlHelper.Controllers
 
         public IActionResult Index()
         {
-            ViewData["Data1"] = "ViewDat";
-            ViewBag.Data2 = "ViewBag";
-            TempData["Data3"] = "TempData";
-
-            TempData["Data4"] = new List<string>()
+            var students = new List<Student>
             {
-                "Cricket","Football","Hockey"
+                new Student { Id = 101, Name = "xyz", Age =34 , Salery = 50000},
+                new Student { Id = 102, Name = "xyz", Age = 24 , Salery = 150000},
+                new Student { Id = 103, Name = "xyz", Age = 23 , Salery = 250000},
+                new Student { Id = 104, Name = "xyz", Age = 32 , Salery = 350000},
             };
-            return View();
-        }
-        public int Edit(int Id)
-        {
-            return Id;
+            return View(students);
         }
 
-        public IActionResult Vdata()
-        {
-            ViewData["Data1"] = "WelCOME";
-            ViewData["Data2"] = 23;
-            ViewData["Data3"] = DateTime.Now.ToLongDateString();
-
-            string[] arr = { "Ali", "salman", "Haris" };
-            ViewData["Data4"] = arr;
-
-            ViewData["Data5"] = new List<string>()
-            {
-                "Cricket","Football","Hockey"
-            };
-            //VewBag calling in Index.cshtml from ViewData 
-            ViewBag.myName = "VewBag calling in Index.cshtml from ViewData";
-            return View();
-        }
-        public IActionResult Vbag()
-        {
-            ViewBag.Data1 = "WelCOME";
-            ViewBag.Data2 = 23;
-            ViewBag.Data3 = DateTime.Now.ToShortDateString();
-
-            string[] arr = { "Ali", "salman", "Haris" };
-            ViewBag.Data4 = arr;
-
-            ViewBag.Data5 = new List<string>()
-            {
-                "Cricket","Football","Hockey"
-            };
-            //VewData calling in Index.cshtml from ViewBag 
-            ViewData["myName"] = "VewData calling in Index.cshtml from ViewBag";
-
-            return View();
-        }
-        public IActionResult Tdata()
-        {
-            //ViewData["Data1"] = "ViewDat";
-            //ViewBag.Data2 = "ViewBag";
-            //TempData["Data3"] = "TempData";
-
-            TempData["Data4"] = null; 
-           
-            return View();
-        }
         public IActionResult Privacy()
         {
             return View();
